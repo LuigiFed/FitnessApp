@@ -1,0 +1,22 @@
+<!-- Barra fissa gialla -->
+<div class="top-bar"></div>
+
+
+<div class="bottom-bar">
+  <div class="menu-button-wrapper">
+    <button class="menu-button" (click)="toggleMenu()">
+      <span *ngIf="!isOpen">&#9776;</span>
+      <span *ngIf="isOpen">&#10005;</span>
+    </button>
+  </div>
+</div>
+
+<!-- Menu overlay A SCHERMO INTERO MA SOTTO LA BARRA -->
+<div class="menu-overlay" [class.open]="isOpen" (click)="toggleMenu()">
+  <div class="menu-content" (click)="$event.stopPropagation()">
+    <li>Home</li>
+    <li routerLink="['/work-out']" routerLinkActive="router-link-active" >Allenamenti</li>
+    <li>Progressi</li>
+    <li>Piano Alimentare</li>
+  </div>
+</div>

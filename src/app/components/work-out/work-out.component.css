@@ -1,0 +1,135 @@
+.workout-container {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding: 0 16px;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;          /* scroll verticale */
+  overflow-x: hidden;        /* niente scroll orizzontale */
+  height: calc(100vh - 120px);
+}
+
+.month-wrapper {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  padding: 12px 16px;
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  perspective: 800px; /* importante per il 3D */
+}
+
+.month-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.month-label {
+  flex: 0 0 auto;
+  min-width: 80px;
+  text-align: center;
+  padding: 6px 8px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.4);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s ease, color 0.3s ease, border-bottom-color 0.3s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.month-label.active {
+  color: #fff;
+  border-bottom: 2px solid #FFD700;
+  font-weight: bold;
+  /* Effetto 3D tipo “pop-out” con leggera rotazione */
+  transform: perspective(800px) rotateY(10deg) scale(1.2);
+  z-index: 10; /* sopra agli altri */
+}
+
+
+/* Griglia giorni */
+.day-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); /* larghezza fissa per mobile */
+  gap: 14px;
+  width: 100%;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.day-card {
+  width: 70px;
+  height: 70px;
+  background-color: white;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #222;
+}
+
+.day-card:active {
+  transform: scale(0.95);
+  box-shadow: 0 1px 4px rgba(255, 215, 0, 0.5);
+}
+
+.day-card.selected {
+  transform: scale(0.95);
+  box-shadow: 0 1px 8px rgba(255, 215, 0, 0.8);
+  border: 2px solid #FFD700;
+}
+
+/* Dettagli visibili solo se aperti */
+.day-details {
+  margin-top: 24px;
+  width: 100%;
+  animation: fadeIn 0.25s ease-in-out;
+  box-sizing: border-box;
+}
+
+.detail-card {
+  background-color: #111;
+  border: 1px solid #FFD700;
+  border-radius: 16px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.15);
+}
+
+.detail-card h3 {
+  margin-bottom: 10px;
+  color: #FFD700;
+}
+
+.detail-card ul {
+  padding-left: 18px;
+  list-style: disc;
+  margin-top: 8px;
+}
+
+/* Animazioni */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

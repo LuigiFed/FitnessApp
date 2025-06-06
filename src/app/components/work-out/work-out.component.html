@@ -1,0 +1,57 @@
+<div class="workout-container">
+<div class="month-wrapper" #monthScroll>
+  <div
+    *ngFor="let month of months; let i = index"
+    class="month-label"
+    [class.active]="i === selectedMonthIndex"
+    (click)="selectMonth(i)"
+    #monthItem
+  >
+    {{ month }}
+  </div>
+
+
+
+
+</div>
+
+
+  <div
+    class="day-grid"
+    style="
+      display: flex;
+      gap: 12px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 12px;
+      justify-content: center;
+    "
+  >
+    <div
+      *ngFor="let day of workoutDays; let i = index"
+      class="day-card"
+      [class.selected]="openedDay === i"
+      (click)="toggleDay(i)"
+      [style.background-image]="
+        i === 0
+          ? 'url(/chest.png)'
+          : i === 1
+          ? 'url(/leg.png)'
+          : i === 2
+          ? 'url(/back.png)'
+          : 'url(assets/images/default.png)'
+      "
+    ></div>
+  </div>
+
+  <!-- Dettagli che si aprono sotto solo se cliccato -->
+  <div class="day-details" *ngIf="openedDay !== null">
+    <div class="detail-card">
+      <h3>{{ workoutDays[openedDay].dayLabel }}</h3>
+      <p>{{ workoutDays[openedDay].description }}</p>
+      <ul>
+        <li *ngFor="let ex of workoutDays[openedDay].exercises">{{ ex }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
