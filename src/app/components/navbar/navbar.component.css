@@ -100,8 +100,8 @@ html, body {
 
 .menu-content li {
   color: white;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
