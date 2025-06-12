@@ -34,6 +34,37 @@ html, body {
   z-index: 2000;
 }
 
+.title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
+  font-family: 'Oswald', sans-serif;
+}
+
+.g {
+  color: white;
+  font-weight: 700;
+  font-size: 36px;
+  padding: 5px;
+  margin: 0;
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+   transform: translateY(-4px);
+}
+
+.name-e{
+    color: black;
+  font-weight: 500;
+  font-size: 26px;
+  margin: 0;
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+   transform: translateY(-4px);
+}
+
+
+
 
 /* BOTTONE CERCHIO SOPRA TUTTO */
 .menu-button-wrapper {

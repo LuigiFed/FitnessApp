@@ -52,11 +52,13 @@
               "extractLicenses": false,
               "sourceMap": true
             }
-          },
-          "defaultConfiguration": "production"
+          }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "FitnessApp:build"
+          },
           "configurations": {
             "production": {
               "buildTarget": "FitnessApp:build:production"
@@ -64,11 +66,13 @@
             "development": {
               "buildTarget": "FitnessApp:build:development"
             }
-          },
-          "defaultConfiguration": "development"
+          }
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "FitnessApp:build"
+          }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",

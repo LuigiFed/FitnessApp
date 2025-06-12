@@ -1,20 +1,15 @@
 <div class="workout-container">
-<div class="month-wrapper" #monthScroll>
-  <div
-    *ngFor="let month of months; let i = index"
-    class="month-label"
-    [class.active]="i === selectedMonthIndex"
-    (click)="selectMonth(i)"
-    #monthItem
-  >
-    {{ month }}
+  <div class="month-wrapper" #monthScroll>
+    <div
+      *ngFor="let month of months; let i = index"
+      class="month-label"
+      [class.active]="i === selectedMonthIndex"
+      (click)="selectMonth(i)"
+      #monthItem
+    >
+      {{ month }}
+    </div>
   </div>
-
-
-
-
-</div>
-
 
   <div
     class="day-grid"
@@ -26,31 +21,50 @@
       justify-content: center;
     "
   >
+    >
+
     <div
-      *ngFor="let day of workoutDays; let i = index"
+      *ngFor="let muscleGroup of fixedMuscleGroups; let i = index"
       class="day-card"
       [class.selected]="openedDay === i"
       (click)="toggleDay(i)"
-      [style.background-image]="
-        i === 0
-          ? 'url(/chest.png)'
-          : i === 1
-          ? 'url(/leg.png)'
-          : i === 2
-          ? 'url(/back.png)'
-          : 'url(assets/images/default.png)'
-      "
+      [style.background-image]="muscleGroup.image"
     ></div>
   </div>
 
-  <!-- Dettagli che si aprono sotto solo se cliccato -->
   <div class="day-details" *ngIf="openedDay !== null">
     <div class="detail-card">
-      <h3>{{ workoutDays[openedDay].dayLabel }}</h3>
-      <p>{{ workoutDays[openedDay].description }}</p>
-      <ul>
-        <li *ngFor="let ex of workoutDays[openedDay].exercises">{{ ex }}</li>
-      </ul>
+      <div
+        class="exercises-list"
+        *ngIf="selectedMuscleGroupExercises.length > 0"
+      >
+        <h4>SCHEDA ALLENAMENTO:</h4>
+        <ul>
+          <li
+            *ngFor="let exercise of selectedMuscleGroupExercises;let i = index"
+            class="exercise-item"
+          >
+            <div class="exercise-info">
+              <span class="exercise-name">{{ exercise.name }}</span>
+              <span class="exercise-sets">{{ exercise.sets }}</span>
+              <span class="exercise-mult">x</span>
+              <span class="exercise-reps">{{ exercise.reps }}</span>
+
+              <span class="workout-name" *ngIf="exercise.workouts?.name">
+                Workout: {{ exercise.workouts.name }}
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Messaggio se non ci sono esercizi -->
+      <div
+        class="no-exercises"
+        *ngIf="selectedMuscleGroupExercises.length === 0"
+      >
+        <p>Nessun esercizio disponibile per questo gruppo muscolare.</p>
+      </div>
     </div>
   </div>
 </div>

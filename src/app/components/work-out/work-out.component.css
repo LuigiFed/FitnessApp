@@ -59,10 +59,9 @@ body {
 }
 
 /* Griglia giorni */
-.day-grid {
+.muscle-groups-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-  gap: 14px;
   width: 100%;
   margin-top: 20px;
   box-sizing: border-box;
@@ -71,6 +70,7 @@ body {
 .day-card {
   width: 50px;
   height: 50px;
+  margin-top: 10px;
   background-color: white;
   background-size: contain;
   background-repeat: no-repeat;
@@ -117,7 +117,7 @@ body {
   box-shadow: 0 2px 8px rgba(255, 215, 0, 0.15);
 }
 
-.detail-card h3 {
+.detail-card h4 {
   margin-bottom: 10px;
   color: #ffd700;
   text-align: center;
@@ -130,6 +130,46 @@ body {
   list-style: none;
 }
 
+.exercise-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  color: white;
+  padding: 5px;
+}
+
+.exercise-name {
+  flex: 1;
+  font-weight: bold;
+}
+
+.exercise-sets,
+.exercise-reps {
+  border: 1px solid rgb(255, 196, 2);
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: transparent;
+  font-weight: 600;
+  min-width: 30px;
+  text-align: center;
+}
+
+.exercise-mult {
+  font-weight: 600;
+  color: white;
+  user-select: none;
+}
+
+.workout-name {
+  margin-left: auto;
+  font-style: italic;
+  font-size: 0.9em;
+  color: #ffd700;
+}
+
+
+
 /* Animazioni */
 @keyframes fadeIn {
   from {
@@ -141,3 +181,4 @@ body {
     transform: translateY(0);
   }
 }
+
