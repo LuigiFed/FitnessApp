@@ -152,13 +152,13 @@ async toggleDay(index: number): Promise<void> {
 
     const allExercisesArrays = await Promise.all(exercisePromises);
 
-    // Combina tutti gli esercizi
+
     const allExercises = allExercisesArrays.flat();
 
-    // Filtra per mese
+
     const filteredExercises = allExercises.filter(ex => Number(ex.month) === monthNum);
 
-    // Rimuovi duplicati basandosi sull'ID
+
     const uniqueExercises = filteredExercises.filter((exercise, index, self) =>
       index === self.findIndex(ex => ex.id === exercise.id)
     );
