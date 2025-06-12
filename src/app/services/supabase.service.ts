@@ -40,6 +40,7 @@ export class SupabaseService {
         name,
         sets,
         reps,
+        month,
         muscle_groups (
           id,
           name
@@ -64,6 +65,7 @@ export class SupabaseService {
         name,
         sets,
         reps,
+        month,
         workouts (
           id,
           name
