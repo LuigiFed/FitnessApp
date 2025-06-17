@@ -26,6 +26,17 @@ export interface MonthlyRotation {
   secondary_id: string;
 }
 
+export interface ExerciseProgress {
+  id: string;
+  exercise_id: string;
+  weight_used: number;
+  created_at: string;
+}
+
+export interface ExerciseProgressWithName extends ExerciseProgress {
+  exercise_name: string;
+}
+
 export const monthSecondaryGroups: {
   [key: string]: { primario: string; secondario: string }[];
 } = {

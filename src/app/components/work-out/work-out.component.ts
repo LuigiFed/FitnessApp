@@ -10,11 +10,12 @@ import {
 } from '@angular/core';
 import { SupabaseService } from '../../services/supabase.service';
 import { Exercise, muscleGroups, monthSecondaryGroups } from '../../../Interface/IWorkout';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-work-out',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './work-out.component.html',
   styleUrls: ['./work-out.component.css'], // attenzione qui, styleUrls al plurale
 })
@@ -22,7 +23,7 @@ export class WorkOutComponent implements OnInit, AfterViewInit {
   constructor(private supabase: SupabaseService) {}
 
   openedDay: number | null = null;
-
+exerciseWeights: { [exerciseId: string]: number } = {};
   monthSecondaryGroups = monthSecondaryGroups;
 
   fixedMuscleGroups = [
@@ -119,7 +120,7 @@ async toggleDay(index: number): Promise<void> {
   }
 
   try {
-    // 🔄 Recupera i gruppi secondari dal DB per il mese e primario selezionato
+
     const secondaryMuscleGroups = await this.supabase.getSecondaryGroupsForMonth(monthNum, mainMuscleGroup.id);
 
     const groupsToFetch = [mainMuscleGroup, ...secondaryMuscleGroups];
@@ -251,4 +252,29 @@ findMatchingMuscleGroup(fixedGroupName: string): muscleGroups | undefined {
     const { data, error } = await this.supabase.getWorkoutWithExercises(this.workoutId);
     if (!error) console.log(data);
   }
+
+  saveWeight(exerciseId: string) {
+  const weight = this.exerciseWeights[exerciseId];
+  if (weight != null) {
+    this.supabase.saveExerciseWeight(exerciseId, weight).then(() => {
+      console.log('Peso salvato con successo');
+    }).catch(err => console.error(err));
+  }
+}
+async saveAllProgress() {
+  try {
+    for (const exercise of this.selectedMuscleGroupExercises) {
+      const weight = this.exerciseWeights[exercise.id];
+      if (weight != null && weight > 0) {
+        await this.supabase.saveExerciseWeight(exercise.id, weight);
+           this.exerciseWeights[exercise.id] = 0;
+      }
+    }
+    alert('Progressi salvati con successo!');
+  } catch (error) {
+    alert('Errore durante il salvataggio dei progressi.');
+    console.error(error);
+  }
+}
+
 }

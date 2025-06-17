@@ -12,7 +12,6 @@
   </div>
 
   <div class="day-grid">
-
     <div
       *ngFor="let muscleGroup of fixedMuscleGroups; let i = index"
       class="day-card"
@@ -31,7 +30,7 @@
         <h4>SCHEDA ALLENAMENTO:</h4>
         <ul>
           <li
-            *ngFor="let exercise of selectedMuscleGroupExercises;let i = index"
+            *ngFor="let exercise of selectedMuscleGroupExercises; let i = index"
             class="exercise-item"
           >
             <div class="exercise-info">
@@ -39,7 +38,14 @@
               <span class="exercise-sets">{{ exercise.sets }}</span>
               <span class="exercise-mult">x</span>
               <span class="exercise-reps">{{ exercise.reps }}</span>
-
+              <span class="exercise-weight">
+                <input
+                  type="number"
+                  placeholder="kg"
+                  [(ngModel)]="exerciseWeights[exercise.id]"
+                  (change)="saveWeight(exercise.id)"
+                />
+              </span>
               <span class="workout-name" *ngIf="exercise.workouts?.name">
                 Workout: {{ exercise.workouts.name }}
               </span>
@@ -56,8 +62,7 @@
         <p>Nessun esercizio disponibile per questo gruppo muscolare.</p>
       </div>
     </div>
-      <button class="avvia">Avvia</button>
+   <button class="avvia" (click)="saveAllProgress()">Salva progressi</button>
+
   </div>
-
-
 </div>

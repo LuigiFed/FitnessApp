@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { muscleGroups } from '../../Interface/IWorkout';
+import { ExerciseProgressWithName, muscleGroups } from '../../Interface/IWorkout';
 
 @Injectable({
   providedIn: 'root',
@@ -108,4 +108,42 @@ async getSecondaryGroupsForMonth(month: number, primaryId: string): Promise<musc
       .select('*')
       .order('created_at', { ascending: false });
   }
+
+  async saveExerciseWeight(exerciseId: string, weight: number): Promise<void> {
+  const { error } = await this.supabase
+    .from('exercise_progress')
+    .insert([{ exercise_id: exerciseId, weight_used: weight }]);
+
+  if (error) {
+    console.error('Errore salvataggio peso:', error);
+    throw error;
+  }
+}
+
+async getExerciseProgressWithName(): Promise<ExerciseProgressWithName[]> {
+  const { data, error } = await this.supabase
+    .from('exercise_progress')
+    .select(`
+      id,
+      exercise_id,
+      weight_used,
+      created_at,
+      exercises(name)
+    `);
+
+  if (error) {
+    console.error('Errore recupero progressi esercizi:', error);
+    throw error;
+  }
+
+  return data.map((item: any) => ({
+    id: item.id,
+    exercise_id: item.exercise_id,
+    weight_used: item.weight_used,
+    created_at: item.created_at,
+    exercise_name: item.exercises.name
+  }));
+}
+
+
 }

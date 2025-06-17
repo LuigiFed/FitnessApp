@@ -1,6 +1,10 @@
 <!-- Barra fissa gialla -->
-<div class="top-bar"><div class="title"><p class="g">G</p><p class="name-e">EXCLUSIVE</p></div></div>
-
+<div class="top-bar">
+  <div class="title">
+    <p class="g">G</p>
+    <p class="name-e">EXCLUSIVE</p>
+  </div>
+</div>
 
 <div class="bottom-bar">
   <div class="menu-button-wrapper">
@@ -15,8 +19,12 @@
 <div class="menu-overlay" [class.open]="isOpen" (click)="toggleMenu()">
   <div class="menu-content" (click)="$event.stopPropagation()">
     <li>Home</li>
-    <li routerLink="['/work-out']" routerLinkActive="router-link-active" >Allenamenti</li>
-    <li>Progressi</li>
-    <li>Piano Alimentare</li>
+    <li routerLink="/work-out" routerLinkActive="router-link-active" (click)="toggleMenu()">
+      Allenamenti
+    </li>
+    <li [routerLink]="['/show-progress']" routerLinkActive="router-link-active" (click)="toggleMenu()">
+      Progressi
+    </li>
+    <li (click)="toggleMenu()">Piano Alimentare</li>
   </div>
 </div>
