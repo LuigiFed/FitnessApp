@@ -20,6 +20,12 @@ export interface Exercise {
   month: number;
 }
 
+export interface MonthlyRotation {
+  month: number;
+  primary_id: string;
+  secondary_id: string;
+}
+
 export const monthSecondaryGroups: {
   [key: string]: { primario: string; secondario: string }[];
 } = {

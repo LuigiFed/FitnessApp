@@ -108,56 +108,31 @@ async toggleDay(index: number): Promise<void> {
 
   this.openedDay = index;
 
-  const mainGroup = this.fixedMuscleGroups[index].name.toLowerCase();
   const monthNum = this.selectedMonthIndex + 1;
+  const mainGroupName = this.fixedMuscleGroups[index].name.toLowerCase();
 
-  // Trova i gruppi secondari per questo mese
-  const secondaryGroupsForMonth = this.monthSecondaryGroups[monthNum] || [];
-
-  // Trova tutti i gruppi secondari associati al gruppo primario selezionato
-  const secondaryGroups = secondaryGroupsForMonth
-    .filter(g => g.primario.toLowerCase() === mainGroup)
-    .map(g => g.secondario.toLowerCase());
-
-  console.log('mainGroup:', mainGroup);
-  console.log('secondaryGroups:', secondaryGroups);
-
-  // Trova il gruppo muscolare primario
-  const mainMuscleGroup = this.findMatchingMuscleGroup(mainGroup);
-
-  // Trova tutti i gruppi muscolari secondari
-  const secondaryMuscleGroups = secondaryGroups
-    .map(secondaryName => this.findMatchingMuscleGroup(secondaryName))
-    .filter(group => group !== undefined) as muscleGroups[];
-
-  console.log('mainMuscleGroup:', mainMuscleGroup);
-  console.log('secondaryMuscleGroups:', secondaryMuscleGroups);
-
+  const mainMuscleGroup = this.findMatchingMuscleGroup(mainGroupName);
   if (!mainMuscleGroup) {
-    console.warn(`Gruppo muscolare primario '${mainGroup}' non trovato`);
+    console.warn(`Gruppo muscolare primario '${mainGroupName}' non trovato`);
     this.selectedMuscleGroupExercises = [];
     return;
   }
 
   try {
-    // Crea un array di promesse per tutti i gruppi (primario + secondari)
+    // 🔄 Recupera i gruppi secondari dal DB per il mese e primario selezionato
+    const secondaryMuscleGroups = await this.supabase.getSecondaryGroupsForMonth(monthNum, mainMuscleGroup.id);
+
     const groupsToFetch = [mainMuscleGroup, ...secondaryMuscleGroups];
 
-    // Esegui tutte le chiamate in parallelo
     const exercisePromises = groupsToFetch.map(group =>
-      this.supabase
-        .getExercisesByMuscleGroup(group.id)
-        .then(res => res.data ? res.data : [])
+      this.supabase.getExercisesByMuscleGroup(group.id)
+        .then(res => res.data ?? [])
     );
 
     const allExercisesArrays = await Promise.all(exercisePromises);
-
-
     const allExercises = allExercisesArrays.flat();
 
-
     const filteredExercises = allExercises.filter(ex => Number(ex.month) === monthNum);
-
 
     const uniqueExercises = filteredExercises.filter((exercise, index, self) =>
       index === self.findIndex(ex => ex.id === exercise.id)
@@ -174,6 +149,7 @@ async toggleDay(index: number): Promise<void> {
     this.selectedMuscleGroupExercises = [];
   }
 }
+
 
 findMatchingMuscleGroup(fixedGroupName: string): muscleGroups | undefined {
   const searchName = fixedGroupName.trim().toLowerCase();
