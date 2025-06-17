@@ -1,0 +1,69 @@
+.progress-wrapper {
+  margin-top: 60px; /* sotto la top-bar */
+  margin-bottom: 60px; /* sopra la bottom-bar */
+  padding: 20px 15px;
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  background-color: #000;
+}
+
+/* Dropdown */
+.dropdown-label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: white;
+}
+
+.dropdown-select {
+  width: 60%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ffd700;
+  background-color: #111;
+  color: white;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Lista progressi */
+.progress-container {
+  background-color: #111;
+  color: white;
+  border: 1px solid #ffd700;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+  padding: 10px;
+}
+
+.progress-title {
+  margin-bottom: 10px;
+  color: #ffd700;
+  text-align: center;
+}
+
+.progress-item {
+  padding: 8px;
+  border-bottom: 1px solid #ffd70050;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.weight-used {
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.date {
+  color: white;
+}
+
+.no-progress {
+  color: #ccc;
+  margin-top: 20px;
+  text-align: center;
+}

@@ -1,1 +1,30 @@
-<p>show-progress works!</p>
+<div class="progress-wrapper">
+  <div *ngIf="eserciziUnici.length > 0; else noData">
+    <label for="esercizio-select" class="dropdown-label">Seleziona un esercizio:</label>
+    <select id="esercizio-select" [(ngModel)]="esercizioSelezionato" class="dropdown-select">
+      <option *ngFor="let esercizio of eserciziUnici" [value]="esercizio">
+        {{ esercizio }}
+      </option>
+    </select>
+
+    <div class="progress-container" *ngIf="getProgressiFiltrati().length > 0">
+      <h3 class="progress-title">Progressi per: {{ esercizioSelezionato }}</h3>
+      <ul>
+        <li *ngFor="let item of getProgressiFiltrati()" class="progress-item">
+          <div class="progress-info">
+            <span class="weight-used">{{ item.weight_used }} kg</span>
+            <span class="date">{{ item.created_at | date:'short' }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="getProgressiFiltrati().length === 0" class="no-progress">
+      <p>Nessun progresso registrato per questo esercizio.</p>
+    </div>
+  </div>
+
+  <ng-template #noData>
+    <p class="no-progress">Nessun progresso disponibile.</p>
+  </ng-template>
+</div>
