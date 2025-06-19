@@ -87,6 +87,7 @@ export class ShowProgressComponent {
     this.chartOptions = {
       maintainAspectRatio: false,
       responsive: true,
+       aspectRatio: 0.8,
       plugins: {
         legend: {
           labels: {

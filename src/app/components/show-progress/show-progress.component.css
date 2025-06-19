@@ -18,8 +18,8 @@
 .custom-dropdown {
   position: relative;
   display: inline-block;
-  width: 200px;
-  margin-bottom: 20px;
+  width: 250px;
+  margin-bottom: 15px;
 }
 
 .dropdown-selected {
@@ -29,9 +29,9 @@
   border: 1px solid #ffd700;
   background-color: #111;
   color: white;
-  font-size: 14px;
-  height: 30px;
-  line-height: 20px;
+  font-size: 13px;
+  height: 35px;
+  line-height: 25px;
   box-sizing: border-box;
   cursor: pointer;
   display: flex;
@@ -63,7 +63,7 @@
 
 .dropdown-options {
   position: absolute;
-  top: 100%;
+  top: 105%;
   left: 0;
   right: 0;
   background-color: #111;
@@ -114,6 +114,7 @@
   margin-bottom: 10px;
   color: #ffd700;
   text-align: center;
+  padding:10px;
 }
 
 .progress-item {
@@ -140,4 +141,17 @@
   color: #ccc;
   margin-top: 20px;
   text-align: center;
+}
+
+.chart-container {
+  margin-top: 20px;
+}
+
+.card{
+  background-color: #111;
+  border: 1px solid #ffd700;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+  padding: 10px;
+  margin-top: 20px;
 }
