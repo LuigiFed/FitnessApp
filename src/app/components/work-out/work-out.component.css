@@ -3,6 +3,10 @@ body {
   margin: 0;
     overflow: hidden;
 }
+:root {
+  --vh: 1vh;
+}
+
 
 .workout-container {
   margin-top: 60px;

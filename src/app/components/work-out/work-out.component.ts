@@ -54,6 +54,18 @@ export class WorkOutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.loadMuscleGroups();
     this.supabase.getAllExercises().then(res => console.log(res));
     this.filterExercisesByMonth();
+    this.updateVh();
+
+    window.addEventListener('resize', this.updateVh);
+  }
+
+    updateVh() {
+
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+    ngOnDestroy() {
+    window.removeEventListener('resize', this.updateVh);
   }
 
   ngAfterViewInit() {
@@ -77,11 +89,6 @@ export class WorkOutComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    if (this.viewport && this.onViewportResize) {
-      this.viewport.removeEventListener('resize', this.onViewportResize);
-    }
-  }
 
   selectMonth(index: number) {
     this.selectedMonthIndex = index;
