@@ -11,7 +11,7 @@ import {
 import { SupabaseService } from '../../services/supabase.service';
 import { Exercise, muscleGroups, monthSecondaryGroups } from '../../../Interface/IWorkout';
 import { FormsModule } from '@angular/forms';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-work-out',
   standalone: true,
@@ -282,10 +282,17 @@ async saveAllProgress() {
            this.exerciseWeights[exercise.id] = 0;
       }
     }
-    alert('Progressi salvati con successo!');
+Swal.fire({
+  title: "Ottimo Lavoro!",
+  text: "Progressi salvati con successo!",
+  icon: "success"
+});
   } catch (error) {
-    alert('Errore durante il salvataggio dei progressi.');
-    console.error(error);
+   Swal.fire({
+  title: "Errore!",
+  text: "Si è verificato un errore!",
+  icon: "error"
+});
   }
 }
 
