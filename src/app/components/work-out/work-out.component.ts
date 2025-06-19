@@ -7,6 +7,7 @@ import {
   ViewChildren,
   AfterViewInit,
   OnInit,
+  HostListener,
 } from '@angular/core';
 import { SupabaseService } from '../../services/supabase.service';
 import { Exercise, muscleGroups, monthSecondaryGroups } from '../../../Interface/IWorkout';
@@ -276,5 +277,13 @@ async saveAllProgress() {
     console.error(error);
   }
 }
+@HostListener('focusin', ['$event'])
+onFocusIn() {
+  document.body.style.overflow = 'hidden';
+}
 
+@HostListener('focusout', ['$event'])
+onFocusOut() {
+  document.body.style.overflow = '';
+}
 }

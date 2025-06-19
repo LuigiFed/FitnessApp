@@ -3,7 +3,7 @@
   margin-bottom: 60px; /* sopra la bottom-bar */
   padding: 20px 15px;
   height: calc(100vh - 120px);
-  overflow-y: auto;
+  overflow: hidden;
   background-color: #000;
 }
 
