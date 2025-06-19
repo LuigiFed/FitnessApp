@@ -29,6 +29,10 @@ export class WorkOutComponent implements OnInit, AfterViewInit {
   openedDay: number | null = null;
   exerciseWeights: { [exerciseId: string]: number } = {};
   monthSecondaryGroups = monthSecondaryGroups;
+  timerRunning = false;
+timer: any = null;
+seconds = 0;
+displayTime = '00:00';
 
   fixedMuscleGroups = [
     {
@@ -338,4 +342,31 @@ export class WorkOutComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
+  startTimer() {
+  if (this.timerRunning) return;
+  this.timerRunning = true;
+  this.timer = setInterval(() => {
+    this.seconds++;
+    this.displayTime = this.formatTime(this.seconds);
+  }, 1000);
+}
+
+pauseTimer() {
+  this.timerRunning = false;
+  clearInterval(this.timer);
+}
+
+resetTimer() {
+  this.pauseTimer();
+  this.seconds = 0;
+  this.displayTime = '00:00';
+}
+
+formatTime(totalSeconds: number): string {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  const pad = (num: number) => num.toString().padStart(2, '0');
+  return `${pad(minutes)}:${pad(seconds)}`;
+}
 }
