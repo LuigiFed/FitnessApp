@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './work-out.component.html',
   styleUrls: ['./work-out.component.css'],
 })
-export class WorkOutComponent implements OnInit, AfterViewInit, OnDestroy {
+export class WorkOutComponent implements OnInit, OnDestroy {
   @ViewChild('monthScroll') monthScroll!: ElementRef<HTMLDivElement>;
   @ViewChildren('monthItem') monthItems!: QueryList<ElementRef<HTMLDivElement>>;
 
@@ -56,7 +56,11 @@ export class WorkOutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterExercisesByMonth();
     this.updateVh();
 
+
     window.addEventListener('resize', this.updateVh);
+    if ((window as any).visualViewport) {
+      (window as any).visualViewport.addEventListener('resize', this.updateVh);
+    }
   }
 
     updateVh() {
@@ -66,28 +70,12 @@ export class WorkOutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
     ngOnDestroy() {
     window.removeEventListener('resize', this.updateVh);
-  }
-
-  ngAfterViewInit() {
-    // Centra il mese attivo dopo il rendering
-    setTimeout(() => this.centerActiveMonth(), 100);
-
-    // Gestione della tastiera iOS con Visual Viewport API
     if ((window as any).visualViewport) {
-      this.viewport = (window as any).visualViewport;
-      this.onViewportResize = () => {
-        // Se la viewport visiva è ridotta, tastiera aperta
-        if (this.viewport.height < window.innerHeight) {
-          // Qui puoi aggiungere logica se serve durante il focus
-        } else {
-          // Tastiera chiusa: reset overflow e scroll
-          document.body.style.overflow = '';
-          window.scrollTo(0, 0);
-        }
-      };
-      this.viewport.addEventListener('resize', this.onViewportResize);
+      (window as any).visualViewport.removeEventListener('resize', this.updateVh);
     }
   }
+
+
 
 
   selectMonth(index: number) {
