@@ -277,19 +277,19 @@ async saveAllProgress() {
     console.error(error);
   }
 }
+  @HostListener('focusin', ['$event'])
+  onFocusIn() {
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+  }
 
-@HostListener('focusin')
-onFocusIn() {
-  document.body.style.position = 'fixed';
-  document.body.style.width = '100%';
-}
-
-@HostListener('focusout')
-onFocusOut() {
-  document.body.style.position = '';
-  document.body.style.width = '';
-  window.scrollTo(0, 0); // Reset visivo
-}
-
+  @HostListener('focusout', ['$event'])
+  onFocusOut() {
+    setTimeout(() => {
+      document.body.style.position = '';
+      document.body.style.width = '';
+      window.scrollTo(0, 0);
+    }, 100);
+  }
 
 }
