@@ -9,15 +9,24 @@ body {
 
 
 .workout-container {
-  margin-top: 60px;
-  margin-bottom: 60px;
+  position: fixed;
+  top: 60px;
+  bottom: 60px;
+  left: 0;
+  right: 0;
   padding: 0 16px;
   background-color: #000;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-   height: calc(var(--vh, 1vh) * 100 - 120px);
+}
+
+.inner-list {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .month-wrapper {
@@ -176,20 +185,20 @@ justify-content: center;
   color: #ffd700;
 }
 
-.avvia{
+.avvia {
   background-color: #ffd700;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px;
-  margin-left: 110px;
+  margin: 20px auto; /* auto per centramento orizzontale */
   border: 1px solid white;
   border-radius: 10px;
   color: black;
-  padding: 10px;
+  padding: 10px 20px;
   width: 150px;
   box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
-
+  position: relative;
+  z-index: 1; /* sopra tutto */
 }
 
 .exercise-weight {
