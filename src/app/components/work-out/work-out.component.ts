@@ -30,6 +30,7 @@ export class WorkOutComponent implements OnInit, AfterViewInit {
   exerciseWeights: { [exerciseId: string]: number } = {};
   monthSecondaryGroups = monthSecondaryGroups;
   timerRunning = false;
+  digits = Array.from({ length: 10 }, (_, i) => i);
 timer: any = null;
 seconds = 0;
 displayTime = '00:00';

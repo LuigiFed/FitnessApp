@@ -203,6 +203,8 @@ justify-content: center;
 
 .exercise-weight {
   display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 .exercise-weight input {
   border: 1px solid rgb(255, 196, 2);
@@ -222,15 +224,31 @@ justify-content: center;
   flex-direction: column;
   align-items: center;
   margin: 16px auto;
-  padding: 6px 10px;
+  padding: 12px 15px;
   width: 300px;
+  position: relative;
+  overflow: hidden;
+}
+
+.timer-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+  opacity: 0.6;
 }
 
 .timer-container h4 {
-  margin: 0 5px 13px ;
+  margin: 0 5px 13px;
   font-size: 1rem;
   color: #ffd700;
   text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
 }
 
 .timer-row {
@@ -245,42 +263,140 @@ justify-content: center;
   font-size: 1rem;
   font-weight: 700;
   color: #ffd700;
-  background-color: #1c1c1c;
+  background: linear-gradient(145deg, #050505, #1c1c1c);
   padding: 0.6rem 1rem;
   border-radius: 8px;
   border: 2px solid #ffd700;
   flex-shrink: 0;
   min-width: 80px;
   text-align: center;
+  box-shadow:
+    0 3px 12px rgba(255, 215, 0, 0.2),
+    inset 0 2px 4px rgba(0, 0, 0, 0.4),
+    inset 0 -1px 2px rgba(255, 215, 0, 0.1);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.timer-display::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.08), transparent);
+  animation: shimmer 4s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
 }
 
 .timer-container button {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: linear-gradient(to bottom, #fff8a0, #ffd700);
+  background: linear-gradient(145deg, #fff8a0, #ffd700);
   color: #000;
   border: none;
-  box-shadow: 0 4px 0 #b29500;
+  box-shadow:
+    0 4px 0 #b29500,
+    0 6px 12px rgba(255, 215, 0, 0.25);
   font-size: 0.9rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transform: translateY(0);
-  transition: transform 0.1s, box-shadow 0.1s;
+  transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.timer-container button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(145deg, rgba(255,255,255,0.15), transparent);
+  border-radius: 50%;
+  transition: opacity 0.12s ease;
+  opacity: 1;
+}
+
+.timer-container button:hover {
+  transform: translateY(-0.5px);
+  box-shadow:
+    0 5px 0 #b29500,
+    0 7px 14px rgba(255, 215, 0, 0.3);
+}
+
+.timer-container button:hover::before {
+  opacity: 0.8;
 }
 
 .timer-container button:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #b29500;
+  box-shadow:
+    0 2px 0 #b29500,
+    0 3px 6px rgba(255, 215, 0, 0.3);
+}
+
+.timer-container button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: translateY(0);
+  box-shadow:
+    0 3px 0 #666,
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.timer-container button:disabled:hover {
+  transform: translateY(0);
+  box-shadow:
+    0 3px 0 #666,
+    0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .timer-container button i.pi {
   font-size: 0.75rem;
   color: #000;
+  z-index: 1;
+  position: relative;
 }
 
+/* Glow effect when timer is active */
+.timer-container.active {
+  box-shadow:
+    0 6px 20px rgba(255, 215, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
 
+.timer-container.active .timer-display {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow:
+      0 3px 12px rgba(255, 215, 0, 0.2),
+      inset 0 2px 4px rgba(0, 0, 0, 0.4),
+      inset 0 -1px 2px rgba(255, 215, 0, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 3px 12px rgba(255, 215, 0, 0.35),
+      inset 0 2px 4px rgba(0, 0, 0, 0.4),
+      inset 0 -1px 2px rgba(255, 215, 0, 0.15);
+  }
+}
 
 /* Animazioni */
 @keyframes fadeIn {
