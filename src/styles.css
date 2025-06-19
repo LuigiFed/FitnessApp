@@ -4,6 +4,6 @@ body {
   padding: 0;
   overscroll-behavior: none;
   overflow: hidden;
-  -webkit-overflow-scrolling: auto;
+  -webkit-overflow-scrolling: touch;
   height: 100%;
 }
