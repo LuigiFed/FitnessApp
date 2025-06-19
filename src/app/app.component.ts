@@ -12,13 +12,20 @@ import { WorkOutComponent } from './components/work-out/work-out.component';
 export class AppComponent {
   title = 'FitnessApp';
 
-  @HostListener('focusin', ['$event'])
-onFocusIn() {
-  document.body.style.overflow = 'hidden';
-}
+  @HostListener('focusin')
+  onFocusIn() {
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+  }
 
-@HostListener('focusout', ['$event'])
-onFocusOut() {
-  document.body.style.overflow = '';
-}
+  @HostListener('focusout')
+  onFocusOut() {
+    // Timeout breve per aspettare che la tastiera si chiuda del tutto
+    setTimeout(() => {
+      document.body.style.position = '';
+      document.body.style.width = '';
+      window.scrollTo(0, 0);
+    }, 100);
+  }
+
 }
