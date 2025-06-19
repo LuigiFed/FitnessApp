@@ -147,7 +147,7 @@ justify-content: center;
 .exercise-info {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 5px;
   flex-wrap: wrap;
   color: white;
   padding: 5px;
@@ -163,13 +163,27 @@ justify-content: center;
 .exercise-sets,
 .exercise-reps {
   border: 1px solid rgb(255, 196, 2);
-  padding: 4px 8px;
+  padding: 4px 3px;
   border-radius: 4px;
   background-color: transparent;
   font-weight: 600;
   font-size: 0.7rem;
   min-width: 30px;
   text-align: center;
+}
+.exercise-weight input {
+  box-sizing: border-box;
+  border: 1px solid rgb(255, 196, 2);
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: transparent;
+  font-weight: 600;
+  font-size: 0.7rem;
+  width: 30px;
+  text-align: center;
+  color: white;
+  -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
 }
 
 .exercise-mult {
@@ -206,19 +220,7 @@ justify-content: center;
   padding: 4px 8px;
   border-radius: 4px;
 }
-.exercise-weight input {
-  border: 1px solid rgb(255, 196, 2);
-  padding: 4px 8px;
-  border-radius: 4px;
-  background-color: transparent;
-  font-weight: 600;
-  font-size: 0.7rem;
-  width: 30px;
-  text-align: center;
-  color: white;
-  -webkit-text-size-adjust: 100%;
-    touch-action: manipulation;
-}
+
 .timer-container {
   display: flex;
   flex-direction: column;
