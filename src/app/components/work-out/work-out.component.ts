@@ -73,27 +73,21 @@ exerciseWeights: { [exerciseId: string]: number } = {};
     this.supabase.getAllExercises().then((res) => console.log(res));
     this.filterExercisesByMonth();
   }
-  private handleFocusOut = () => {
-  setTimeout(() => {
-    const el = document.querySelector('.workout-container') as HTMLElement;
-    if (el) {
-      el.scrollTop = 0;
-      el.style.overflow = 'hidden';
-    }
 
+  ngAfterViewInit() {
+    setTimeout(() => this.centerActiveMonth(), 100);
+  }
+
+onInputBlur(event: FocusEvent) {
+  const inputEl = event.target as HTMLInputElement;
+
+  setTimeout(() => {
+    const container = document.querySelector('.workout-container') as HTMLElement;
+    if (container) {
+      container.scrollTop = 0;
+    }
     window.scrollTo(0, 0);
   }, 100);
-};
-
-
-ngAfterViewInit() {
-  this.centerActiveMonth();
-  window.addEventListener('focusout', this.handleFocusOut);
-}
-
-
-ngOnDestroy() {
-  window.removeEventListener('focusout', this.handleFocusOut);
 }
 
   selectMonth(index: number) {
@@ -223,7 +217,6 @@ findMatchingMuscleGroup(fixedGroupName: string): muscleGroups | undefined {
     }
   });
 }
-
 
   filterExercisesByMonth() {
     const monthNumber = this.selectedMonthIndex + 1;

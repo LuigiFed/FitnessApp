@@ -40,10 +40,12 @@
               <span class="exercise-reps">{{ exercise.reps }}</span>
               <span class="exercise-weight">
                 <input
+                 #weightInput
                   type="number"
                   placeholder="kg"
                   [(ngModel)]="exerciseWeights[exercise.id]"
                   (change)="saveWeight(exercise.id)"
+                    (blur)="onInputBlur($event)"
                 />
               </span>
               <span class="workout-name" *ngIf="exercise.workouts?.name">
