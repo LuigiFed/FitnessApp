@@ -201,6 +201,8 @@ justify-content: center;
   width: 30px;
   text-align: center;
   color: white;
+  -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
 }
 
 
