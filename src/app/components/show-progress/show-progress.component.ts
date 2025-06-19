@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ExerciseProgressWithName } from '../../../Interface/IWorkout';
 import { SupabaseService } from '../../services/supabase.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChartModule } from 'primeng/chart';
-
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { DropdownModule } from 'primeng/dropdown';
 @Component({
   selector: 'app-show-progress',
   templateUrl: './show-progress.component.html',
   standalone: true,
   imports: [
-    CommonModule, FormsModule, ChartModule
+    CommonModule, FormsModule, ChartModule,AutoCompleteModule,DropdownModule
   ],
   styleUrls: ['./show-progress.component.css']
 })
@@ -20,6 +21,7 @@ export class ShowProgressComponent {
   esercizioSelezionato = '';
   chartData: any;
   chartOptions: any;
+  isDropdownOpen = false;
 
   constructor(private supabase: SupabaseService) {
     this.configureChartOptions();
@@ -137,4 +139,25 @@ export class ShowProgressComponent {
   getProgressiFiltrati(): ExerciseProgressWithName[] {
     return this.progressi.filter(p => p.exercise_name === this.esercizioSelezionato);
   }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+   selectExercise(esercizio: string) {
+    this.esercizioSelezionato = esercizio;
+    this.isDropdownOpen = false;
+    this.onExerciseChange(); // Chiama il tuo metodo esistente
+  }
+
+  // Listener per chiudere dropdown quando si clicca fuori
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event) {
+    const target = event.target as HTMLElement;
+    const dropdown = target.closest('.custom-dropdown');
+    if (!dropdown) {
+      this.isDropdownOpen = false;
+    }
+  }
+
 }

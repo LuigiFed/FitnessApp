@@ -7,46 +7,98 @@
   background-color: #000;
 }
 
-/* Dropdown */
+/* Dropdown personalizzata */
 .dropdown-label {
   display: block;
   margin-bottom: 10px;
   font-weight: bold;
   color: white;
 }
-.dropdown-filter {
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  width: 60%;
+
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  margin-bottom: 20px;
 }
 
-
-.dropdown-select {
-  width: 60%;
-  padding: 5px 10px;
+.dropdown-selected {
+  width: 100%;
+  padding: 5px 30px 5px 10px;
   border-radius: 8px;
   border: 1px solid #ffd700;
   background-color: #111;
   color: white;
   font-size: 14px;
-  margin-bottom: 20px;
   height: 30px;
   line-height: 20px;
   box-sizing: border-box;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-
-.dropdown-select option {
-    padding: 10px;
-    line-height: 15px;
-    height: 100px;
-    font-size: 10px;
-    margin: 20px;
+.dropdown-selected:hover {
+  border-color: #ffed4e;
 }
 
+.dropdown-arrow {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #ffd700;
+  transition: transform 0.2s;
+  pointer-events: none;
+}
+
+.custom-dropdown.open .dropdown-arrow {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #111;
+  border: 1px solid #ffd700;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  max-height: 50vh;
+  overflow-y: auto;
+  z-index: 1000;
+  display: none;
+}
+
+.custom-dropdown.open .dropdown-options {
+  display: block;
+}
+
+.dropdown-option {
+  padding: 8px 10px;
+  cursor: pointer;
+  color: white;
+  border-bottom: 1px solid #333;
+}
+
+.dropdown-option:hover {
+  background-color: #333;
+}
+
+.dropdown-option:last-child {
+  border-bottom: none;
+}
+
+.dropdown-option.selected {
+  background-color: #ffd700;
+  color: #111;
+}
 
 /* Lista progressi */
 .progress-container {
