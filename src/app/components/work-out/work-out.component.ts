@@ -21,7 +21,8 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./work-out.component.css'], // attenzione qui, styleUrls al plurale
 })
 export class WorkOutComponent implements OnInit, AfterViewInit {
-  constructor(private supabase: SupabaseService) {}
+
+  constructor(private supabase: SupabaseService,private elRef: ElementRef) {}
 
   openedDay: number | null = null;
 exerciseWeights: { [exerciseId: string]: number } = {};
@@ -288,10 +289,15 @@ async saveAllProgress() {
   onFocusOut() {
 
     setTimeout(() => {
-      document.body.style.position = '';
-      document.body.style.width = '';
+      // 💡 Forza un repaint forzato su iOS
+      const el = this.elRef.nativeElement as HTMLElement;
+      el.style.display = 'none';
+      el.offsetHeight;
+      el.style.display = '';
+
+
       window.scrollTo(0, 0);
-    }, 100);
+    }, 200);
   }
 
 
