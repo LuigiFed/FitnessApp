@@ -11,9 +11,13 @@ import { DropdownModule } from 'primeng/dropdown';
   templateUrl: './show-progress.component.html',
   standalone: true,
   imports: [
-    CommonModule, FormsModule, ChartModule,AutoCompleteModule,DropdownModule
+    CommonModule,
+    FormsModule,
+    ChartModule,
+    AutoCompleteModule,
+    DropdownModule,
   ],
-  styleUrls: ['./show-progress.component.css']
+  styleUrls: ['./show-progress.component.css'],
 })
 export class ShowProgressComponent {
   progressi: ExerciseProgressWithName[] = [];
@@ -31,7 +35,7 @@ export class ShowProgressComponent {
     try {
       this.progressi = await this.supabase.getExerciseProgressWithName();
       this.eserciziUnici = Array.from(
-        new Set(this.progressi.map(p => p.exercise_name))
+        new Set(this.progressi.map((p) => p.exercise_name))
       );
 
       if (this.eserciziUnici.length > 0) {
@@ -55,16 +59,19 @@ export class ShowProgressComponent {
       return;
     }
 
-    // Sort by date ascending
-    filtered.sort((a, b) =>
-      new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+    filtered.sort(
+      (a, b) =>
+        new Date(a.created_at).getDate() - new Date(b.created_at).getDate()
     );
 
-    const labels = filtered.map(item =>
-      new Date(item.created_at).toLocaleDateString()
-    );
-
-    const weights = filtered.map(item => item.weight_used);
+    const labels = filtered.map((item) => {
+      const d = new Date(item.created_at);
+      const day = String(d.getDate()).padStart(2, '0');
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const year = String(d.getFullYear()).slice(-2);
+      return `${day}/${month}/${year}`;
+    });
+    const weights = filtered.map((item) => item.weight_used);
 
     this.chartData = {
       labels: labels,
@@ -74,9 +81,9 @@ export class ShowProgressComponent {
           data: weights,
           fill: false,
           borderColor: '#42A5F5',
-          tension: 0.4
-        }
-      ]
+          tension: 0.4,
+        },
+      ],
     };
   }
 
@@ -87,65 +94,73 @@ export class ShowProgressComponent {
     this.chartOptions = {
       maintainAspectRatio: false,
       responsive: true,
-       aspectRatio: 0.8,
+      aspectRatio: 0.8,
       plugins: {
         legend: {
+          display: false,
           labels: {
             font: {
               family: fontFamily,
-              size: 14
+              size: 14,
             },
-            color: textColor
-          }
+            color: textColor,
+          },
         },
         tooltip: {
           callbacks: {
             label: (context: any) => {
               return `${context.dataset.label}: ${context.parsed.y} kg`;
-            }
-          }
-        }
+            },
+          },
+        },
+      },
+      layout: {
+        padding: {
+          top: 20,
+        },
       },
       scales: {
         x: {
           ticks: {
             color: textColor,
             font: {
-              family: fontFamily
-            }
+              family: fontFamily,
+            },
           },
           grid: {
-            color: 'rgba(0,0,0,0.05)'
-          }
+            color: 'rgba(0,0,0,0.05)',
+          },
         },
         y: {
           beginAtZero: true,
           ticks: {
             color: textColor,
             font: {
-              family: fontFamily
+              family: fontFamily,
             },
             callback: (value: any) => {
               return value + ' kg';
-            }
+            },
           },
           grid: {
-            color: 'rgba(0,0,0,0.05)'
-          }
-        }
-      }
+            color: 'rgba(0,0,0,0.05)',
+          },
+        },
+      },
     };
   }
 
   getProgressiFiltrati(): ExerciseProgressWithName[] {
-    return this.progressi.filter(p => p.exercise_name === this.esercizioSelezionato);
+    return this.progressi.filter(
+      (p) => p.exercise_name === this.esercizioSelezionato
+    );
   }
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-   selectExercise(esercizio: string) {
+  selectExercise(esercizio: string) {
     this.esercizioSelezionato = esercizio;
     this.isDropdownOpen = false;
     this.onExerciseChange(); // Chiama il tuo metodo esistente
@@ -160,5 +175,4 @@ export class ShowProgressComponent {
       this.isDropdownOpen = false;
     }
   }
-
 }

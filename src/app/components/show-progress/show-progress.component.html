@@ -1,43 +1,49 @@
 <div class="progress-wrapper">
-<div *ngIf="eserciziUnici.length > 0; else noData">
-  <label class="dropdown-label">Seleziona un esercizio:</label>
+  <div *ngIf="eserciziUnici.length > 0; else noData">
+    <label class="dropdown-label">Seleziona un esercizio:</label>
 
-  <div class="custom-dropdown" [class.open]="isDropdownOpen">
-    <div class="dropdown-selected" (click)="toggleDropdown()">
-      <span>{{ esercizioSelezionato || 'Seleziona un esercizio' }}</span>
-      <div class="dropdown-arrow"></div>
-    </div>
+    <div class="custom-dropdown" [class.open]="isDropdownOpen">
+      <div class="dropdown-selected" (click)="toggleDropdown()">
+        <span>{{ esercizioSelezionato || "Seleziona un esercizio" }}</span>
+        <div class="dropdown-arrow"></div>
+      </div>
 
-    <div class="dropdown-options" *ngIf="isDropdownOpen">
-      <div
-        class="dropdown-option"
-        *ngFor="let esercizio of eserciziUnici"
-        [class.selected]="esercizio === esercizioSelezionato"
-        (click)="selectExercise(esercizio)">
-        {{ esercizio }}
+      <div class="dropdown-options" *ngIf="isDropdownOpen">
+        <div
+          class="dropdown-option"
+          *ngFor="let esercizio of eserciziUnici"
+          [class.selected]="esercizio === esercizioSelezionato"
+          (click)="selectExercise(esercizio)"
+        >
+          {{ esercizio }}
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="chart-container" *ngIf="getProgressiFiltrati().length > 0">
-    <h3 class="progress-title">Progressi per: {{ esercizioSelezionato }}</h3>
-    <div class="card">
-      <p-chart
-        type="line"
-        [data]="chartData"
-        [options]="chartOptions"
-         [style]="{'height': '500px'}"
-        class="h-[30rem]">
+    <div class="chart-container" *ngIf="getProgressiFiltrati().length > 0">
+      <h3 class="progress-title">Progressi per: {{ esercizioSelezionato }}</h3>
+      <div class="card">
+        <p-chart
+          type="line"
+          [data]="chartData"
+          [options]="chartOptions"
+          [style]="{ height: '500px' }"
+          class="h-[30rem]"
+        >
+        </p-chart>
 
-      </p-chart>
+        <div class="custom-legend">
+          <span class="legend-box" style="background: #42a5f5"></span>
+          Peso (kg) - {{ esercizioSelezionato }}
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="getProgressiFiltrati().length === 0" class="no-progress">
+      <p>Nessun progresso registrato per questo esercizio.</p>
     </div>
   </div>
-
-  <div *ngIf="getProgressiFiltrati().length === 0" class="no-progress">
-    <p>Nessun progresso registrato per questo esercizio.</p>
-  </div>
 </div>
-</div>
-  <ng-template #noData>
-    <p class="no-progress">Nessun progresso disponibile.</p>
-  </ng-template>
+<ng-template #noData>
+  <p class="no-progress">Nessun progresso disponibile.</p>
+</ng-template>

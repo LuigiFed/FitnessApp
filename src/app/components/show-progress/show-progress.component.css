@@ -155,3 +155,21 @@
   padding: 10px;
   margin-top: 20px;
 }
+
+
+.custom-legend {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+  color: #495057;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.legend-box {
+  width: 12px;
+  height: 12px;
+  background-color: #42A5F5;
+  margin-right: 8px;
+  border-radius: 2px;
+}
