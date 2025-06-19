@@ -4,4 +4,6 @@ body {
   padding: 0;
   overscroll-behavior: none;
   overflow: hidden;
+  -webkit-overflow-scrolling: auto;
+  height: 100%;
 }
