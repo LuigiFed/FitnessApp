@@ -24,7 +24,7 @@ body {
 
 .inner-list {
   flex: 1;
-  line-height: 0.6rem;
+  line-height: 0.5rem;
   width: 100%;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -160,15 +160,16 @@ justify-content: center;
   font-size: 0.7rem;
 }
 
+
 .exercise-sets,
 .exercise-reps {
   border: 1px solid rgb(255, 196, 2);
-  padding: 4px 3px;
+  padding: 6px 0px;
   border-radius: 4px;
   background-color: transparent;
   font-weight: 600;
   font-size: 0.7rem;
-  min-width: 30px;
+  min-width: 29px;
   text-align: center;
 }
 .exercise-weight input {
@@ -232,16 +233,7 @@ justify-content: center;
   overflow: hidden;
 }
 
-.timer-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #ffd700, transparent);
-  opacity: 0.6;
-}
+
 
 .timer-container h4 {
   margin: 0 5px 13px;
