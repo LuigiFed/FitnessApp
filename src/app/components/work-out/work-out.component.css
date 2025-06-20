@@ -115,7 +115,7 @@ justify-content: center;
 
 /* Dettagli visibili solo se aperti */
 .day-details {
-  margin-top: 5px;
+  margin-top: 10px;
   width: 100%;
   animation: fadeIn 0.25s ease-in-out;
   box-sizing: border-box;
