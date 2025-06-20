@@ -125,7 +125,7 @@ justify-content: center;
   background-color: #111;
   border: 1px solid #ffd700;
   border-radius: 16px;
-  height: 420px;
+  height: 430px;
   padding: 10px;
   color: white;
   box-shadow: 0 2px 8px rgba(255, 215, 0, 0.15);
@@ -302,13 +302,9 @@ justify-content: center;
 .timer-container button {
   width: 26px;
   height: 26px;
-  border-radius: 50%;
-  background: linear-gradient(145deg, #fff8a0, #ffd700);
+  border-radius: 5px;
   color: #000;
-  border: none;
-  box-shadow:
-    0 4px 0 #b29500,
-    0 6px 12px rgba(255, 215, 0, 0.25);
+  border: 1px solid goldenrod;
   font-size: 0.9rem;
   display: flex;
   align-items: center;
@@ -320,18 +316,6 @@ justify-content: center;
   overflow: hidden;
 }
 
-.timer-container button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(145deg, rgba(255,255,255,0.15), transparent);
-  border-radius: 50%;
-  transition: opacity 0.12s ease;
-  opacity: 1;
-}
 
 .timer-container button:hover {
   transform: translateY(-0.5px);
@@ -351,30 +335,15 @@ justify-content: center;
     0 3px 6px rgba(255, 215, 0, 0.3);
 }
 
-.timer-container button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  transform: translateY(0);
-  box-shadow:
-    0 3px 0 #666,
-    0 4px 8px rgba(0, 0, 0, 0.2);
-}
 
-.timer-container button:disabled:hover {
-  transform: translateY(0);
-  box-shadow:
-    0 3px 0 #666,
-    0 4px 8px rgba(0, 0, 0, 0.2);
-}
 
 .timer-container button i.pi {
   font-size: 0.75rem;
-  color: #000;
+  color: goldenrod;
   z-index: 1;
   position: relative;
 }
 
-/* Glow effect when timer is active */
 .timer-container.active {
   box-shadow:
     0 6px 20px rgba(255, 215, 0, 0.2),
@@ -383,6 +352,14 @@ justify-content: center;
 
 .timer-container.active .timer-display {
   animation: pulse 2s infinite;
+}
+
+::ng-deep .p-button.p-button-text,
+::ng-deep .p-button.p-button-text:hover,
+::ng-deep .p-button.p-button-text:focus,
+::ng-deep .p-button.p-button-text:active {
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 @keyframes pulse {

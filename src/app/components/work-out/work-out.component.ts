@@ -32,8 +32,8 @@ export class WorkOutComponent implements OnInit, AfterViewInit {
   timerRunning = false;
   digits = Array.from({ length: 10 }, (_, i) => i);
 timer: any = null;
-seconds = 0;
-displayTime = '00:00';
+milliseconds = 0;
+displayTime = '00:00:00';
 
   fixedMuscleGroups = [
     {
@@ -343,14 +343,13 @@ displayTime = '00:00';
       });
     }
   }
-
-  startTimer() {
+startTimer() {
   if (this.timerRunning) return;
   this.timerRunning = true;
   this.timer = setInterval(() => {
-    this.seconds++;
-    this.displayTime = this.formatTime(this.seconds);
-  }, 1000);
+    this.milliseconds += 10; // ogni 10 ms = 1 centisecondo
+    this.displayTime = this.formatTime(this.milliseconds);
+  }, 10);
 }
 
 pauseTimer() {
@@ -360,14 +359,17 @@ pauseTimer() {
 
 resetTimer() {
   this.pauseTimer();
-  this.seconds = 0;
-  this.displayTime = '00:00';
+  this.milliseconds = 0;
+  this.displayTime = '00:00:00';
 }
 
-formatTime(totalSeconds: number): string {
+formatTime(ms: number): string {
+  const totalSeconds = Math.floor(ms / 1000);
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
+  const centiseconds = Math.floor((ms % 1000) / 10);
+
   const pad = (num: number) => num.toString().padStart(2, '0');
-  return `${pad(minutes)}:${pad(seconds)}`;
+  return `${pad(minutes)}:${pad(seconds)}:${pad(centiseconds)}`;
 }
 }
