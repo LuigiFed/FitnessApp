@@ -169,18 +169,18 @@ justify-content: center;
   background-color: transparent;
   font-weight: 600;
   font-size: 0.7rem;
-  min-width: 29px;
+  width: 30px;
   text-align: center;
 }
 .exercise-weight input {
   box-sizing: border-box;
   border: 1px solid rgb(255, 196, 2);
-  padding: 4px 8px;
+  padding: 2px 8px;
   border-radius: 4px;
   background-color: transparent;
   font-weight: 600;
   font-size: 0.7rem;
-  width: 30px;
+  width: 42px;
   text-align: center;
   color: white;
   -webkit-text-size-adjust: 100%;
